@@ -7,7 +7,6 @@ use oogway::Oogway as _Oogway;
 #[macro_use]
 extern crate napi_derive;
 
-// not really optimized , prolly a better way to do this
 #[napi]
 pub struct Oogway {
     inner: _Oogway
@@ -26,27 +25,9 @@ impl Oogway {
         self.inner.model(model_name);
     }
 
-    pub async fn ask(&mut self, question: String) -> Result<String> {
-      let x = self.inner.ask(question).await;
-      Ok("".to_string())
+    #[napi]
+    pub async fn ask(&self, question: String) -> Result<String> {
+      let response = self.inner.ask_and_wait(question).await.map_err(|e| Error::new(Status::GenericFailure, e.to_string()))?;
+      Ok(response.choices.iter().map(|c| c.message.content.clone().unwrap_or_default()).collect::<String>())
     }
-    // pub fn ask<'a >(&mut self, py: Python<'a>, question: String) -> PyResult<&'a PyAny> {
-    //     let x = self.inner.ask(question);
-    //     // x
-    //     pyo3_asyncio::async_std::into_coroutine(py, async move {
-    //         async_std::task::sleep(Duration::from_secs(1)).await;
-    //         Ok(())
-    //     })
-    //     // pyo3_asyncio::tokio::future_into_py(py, async move {
-    //     //     async_std::task::sleep(std::time::Duration::from_secs(1)).await;
-    //     //     Ok(Python::with_gil(|py| py.None()))
-    //     // })
-
-    //     // pyo3_asyncio::async_std::into_coroutine(py, async move {
-    //     //     let x = self.inner.ask(question);
-    //     //     let x = x.await;
-    //     //     Ok(())
-    //     // })
-    // }
-
 }

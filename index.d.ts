@@ -6,4 +6,5 @@
 export class Oogway {
   constructor()
   set modelName(modelName: string)
+  ask(question: string): Promise<string>
 }
