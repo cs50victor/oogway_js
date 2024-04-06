@@ -1,6 +1,6 @@
 {
   "name": "@cs50victor/oogway-darwin-universal",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "os": [
     "darwin"
   ],
@@ -11,5 +11,9 @@
   "license": "MIT",
   "engines": {
     "node": ">= 10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cs50victor/oogway_js.git"
   }
 }
