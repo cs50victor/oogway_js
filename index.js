@@ -295,7 +295,6 @@ if (!nativeBinding) {
   throw new Error(`Failed to load native binding`)
 }
 
-const { sum, Oogway } = nativeBinding
+const { Oogway } = nativeBinding
 
-module.exports.sum = sum
 module.exports.Oogway = Oogway

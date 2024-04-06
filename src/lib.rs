@@ -7,11 +7,6 @@ use oogway::Oogway as _Oogway;
 #[macro_use]
 extern crate napi_derive;
 
-#[napi]
-pub fn sum(a: i32, b: i32) -> i32 {
-  a + b
-}
-
 // not really optimized , prolly a better way to do this
 #[napi]
 pub struct Oogway {
@@ -31,9 +26,10 @@ impl Oogway {
         self.inner.model(model_name);
     }
 
-    // pub fn ask(&mut self, question: String) {
-    //   self.inner.ask(question)
-    // }
+    pub async fn ask(&mut self, question: String) -> Result<String> {
+      let x = self.inner.ask(question).await;
+      Ok("".to_string())
+    }
     // pub fn ask<'a >(&mut self, py: Python<'a>, question: String) -> PyResult<&'a PyAny> {
     //     let x = self.inner.ask(question);
     //     // x

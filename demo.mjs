@@ -1,3 +1,9 @@
-import { sum } from "./index.js"
+import { Oogway } from "./index.js"
 
-console.log('From rust', sum(40, 2))
+
+const example=async()=>{
+    let ai = new Oogway();
+    await ai.ask("What is the meaning of life?")
+}
+
+example()
